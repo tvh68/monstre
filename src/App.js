@@ -1,7 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+//import logo from './logo.svg';
+import {FicheList} from './components/fiche-list/fiche-list.component'
+import { ZoneRecherche } from "./components/zoneRecherche/zone-recherche.component" ;
 import './App.css';
 
+// fonction initiale de react
+/*
 function App() {
   return (
     <div className="App">
@@ -21,6 +25,50 @@ function App() {
       </header>
     </div>
   );
+}
+
+*/
+class App extends Component{
+  constructor () {
+    super ()
+
+    this.state = {
+      monstres: [],
+      champsRecherche: ''
+    }
+  }
+
+  
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users => this.setState({ monstres: users}))
+  }
+
+  render() {
+
+    const monstres= this.state.monstres
+    const champsRecherche = this.state.champsRecherche
+    // OU (Idem) const { monstres, champsRecherche } = this.state
+
+    const monstresFiltre = monstres.filter(monstre => 
+      monstre.name.toLowerCase().includes(champsRecherche.toLowerCase())
+
+    )
+    return (
+
+      <div className="App">
+        <h1>Monstres carrousel</h1>
+        <ZoneRecherche placeholder="Cherche monstres"
+          gererChangement = {e => 
+            this.setState({ champsRecherche: e.target.value })
+          }
+        />
+      
+        <FicheList monstres={monstresFiltre}/>
+      </div>
+    )
+  }
 }
 
 export default App;

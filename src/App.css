@@ -1,3 +1,4 @@
+/*
 .App {
   text-align: center;
 }
@@ -35,4 +36,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+*/
+
+.App {
+
+  text-align: center;
+
+}
+
+h1 {
+
+  font-family: 'Bigelow Rules';
+  font-size: 72px;
+  color: #0ccac4;
+
 }
